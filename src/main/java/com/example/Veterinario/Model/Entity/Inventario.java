@@ -1,6 +1,7 @@
 package com.example.Veterinario.Model.Entity;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
 import lombok.*;
 import java.time.LocalDateTime;
 
@@ -16,8 +17,12 @@ public class Inventario {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @NotBlank(message = "El medicamento no puede estar en blanco.")
+    @Column(nullable = false)
     private String nombre;
 
+    @NotBlank(message = "El medicamento no puede estar en blanco.")
+    @Column(nullable = false)
     private String codigo;
 
     @Column(name = "cantidad_disponible")

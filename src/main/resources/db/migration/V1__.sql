@@ -15,9 +15,8 @@ CREATE TABLE auditorias
 (
     id            BIGINT AUTO_INCREMENT NOT NULL,
     usuario_id    BIGINT NULL,
-    accion        VARCHAR(255) NULL,
-    entidad       VARCHAR(255) NULL,
-    id_entidad    BIGINT NULL,
+    accion        VARCHAR(255) NOT NULL,
+    entidad       VARCHAR(255) NOT NULL,
     fecha_accion  datetime NULL,
     detalles_json TEXT NULL,
     CONSTRAINT pk_auditorias PRIMARY KEY (id)
@@ -32,7 +31,7 @@ CREATE TABLE citas
     estado         VARCHAR(255) NOT NULL,
     fecha_inicio   datetime     NOT NULL,
     fecha_fin      datetime NULL,
-    motivo         VARCHAR(255) NULL,
+    motivo         VARCHAR(255) NOT NULL,
     creado_por     BIGINT NULL,
     CONSTRAINT pk_citas PRIMARY KEY (id)
 );
@@ -56,7 +55,7 @@ CREATE TABLE historiales_medicos
     veterinario_id BIGINT NULL,
     fecha_visita   datetime NULL,
     resumen        VARCHAR(255) NULL,
-    diagnostico    VARCHAR(255) NULL,
+    diagnostico    VARCHAR(255) NOT NULL,
     notas          VARCHAR(255) NULL,
     archivos_json  TEXT NULL,
     CONSTRAINT pk_historiales_medicos PRIMARY KEY (id)
@@ -65,8 +64,8 @@ CREATE TABLE historiales_medicos
 CREATE TABLE inventario
 (
     id                   BIGINT AUTO_INCREMENT NOT NULL,
-    nombre               VARCHAR(255) NULL,
-    codigo               VARCHAR(255) NULL,
+    nombre               VARCHAR(255) NOT NULL,
+    codigo               VARCHAR(255) NOT NULL,
     cantidad_disponible  INT NULL,
     minimo_alerta        INT NULL,
     ultima_actualizacion datetime NULL,
@@ -75,15 +74,15 @@ CREATE TABLE inventario
 
 CREATE TABLE mascotas
 (
-    id               BIGINT AUTO_INCREMENT NOT NULL,
-    perfil_id        BIGINT NULL,
-    nombre           VARCHAR(255) NOT NULL,
-    especie          VARCHAR(255) NOT NULL,
-    raza             VARCHAR(255) NULL,
-    sexo             VARCHAR(255) NULL,
-    fecha_nacimiento date NULL,
-    microchip        VARCHAR(255) NULL,
-    notas            VARCHAR(255) NULL,
+    id                    BIGINT AUTO_INCREMENT NOT NULL,
+    perfil_id             BIGINT NULL,
+    nombre                VARCHAR(255) NOT NULL,
+    especie               VARCHAR(255) NOT NULL,
+    raza                  VARCHAR(255) NOT NULL,
+    sexo                  VARCHAR(255) NOT NULL,
+    `fecha de nacimiento` date         NOT NULL,
+    microchip             BIT(1)       NOT NULL,
+    notas                 VARCHAR(255) NULL,
     CONSTRAINT pk_mascotas PRIMARY KEY (id)
 );
 
@@ -103,10 +102,10 @@ CREATE TABLE prescripciones
 (
     id            BIGINT AUTO_INCREMENT NOT NULL,
     historial_id  BIGINT NULL,
-    medicamento   VARCHAR(255) NULL,
-    dosis         VARCHAR(255) NULL,
-    duracion      VARCHAR(255) NULL,
-    instrucciones VARCHAR(255) NULL,
+    medicamento   VARCHAR(255) NOT NULL,
+    dosis         VARCHAR(255) NOT NULL,
+    duracion      VARCHAR(255) NOT NULL,
+    instrucciones VARCHAR(255) NOT NULL,
     emitido_por   BIGINT NULL,
     CONSTRAINT pk_prescripciones PRIMARY KEY (id)
 );
@@ -139,7 +138,7 @@ CREATE TABLE vacunaciones
 (
     id               BIGINT AUTO_INCREMENT NOT NULL,
     mascota_id       BIGINT NULL,
-    nombre_vacuna    VARCHAR(255) NULL,
+    nombre_vacuna    VARCHAR(255) NOT NULL,
     fecha_aplicacion date NULL,
     proxima_dosis    date NULL,
     lote             VARCHAR(255) NULL,
@@ -165,16 +164,16 @@ ALTER TABLE usuario
     ADD CONSTRAINT uc_usuario_username UNIQUE (username);
 
 ALTER TABLE archivos
-    ADD CONSTRAINT FK_ARCHIVOS_ON_PROPIETARIO FOREIGN KEY (propietario_id) REFERENCES usuario (id);
+    ADD CONSTRAINT FK_ARCHIVOS_ON_PROPIETARIO FOREIGN KEY (propietario_id) REFERENCES perfil (id);
 
 ALTER TABLE archivos
-    ADD CONSTRAINT FK_ARCHIVOS_ON_SUBIDO_POR FOREIGN KEY (subido_por) REFERENCES usuario (id);
+    ADD CONSTRAINT FK_ARCHIVOS_ON_SUBIDO_POR FOREIGN KEY (subido_por) REFERENCES perfil (id);
 
 ALTER TABLE auditorias
-    ADD CONSTRAINT FK_AUDITORIAS_ON_USUARIO FOREIGN KEY (usuario_id) REFERENCES usuario (id);
+    ADD CONSTRAINT FK_AUDITORIAS_ON_USUARIO FOREIGN KEY (usuario_id) REFERENCES perfil (id);
 
 ALTER TABLE citas
-    ADD CONSTRAINT FK_CITAS_ON_CREADO_POR FOREIGN KEY (creado_por) REFERENCES usuario (id);
+    ADD CONSTRAINT FK_CITAS_ON_CREADO_POR FOREIGN KEY (creado_por) REFERENCES perfil (id);
 
 ALTER TABLE citas
     ADD CONSTRAINT FK_CITAS_ON_MASCOTA FOREIGN KEY (mascota_id) REFERENCES mascotas (id);
@@ -183,7 +182,7 @@ ALTER TABLE citas
     ADD CONSTRAINT FK_CITAS_ON_PERFIL FOREIGN KEY (perfil_id) REFERENCES perfil (id);
 
 ALTER TABLE citas
-    ADD CONSTRAINT FK_CITAS_ON_VETERINARIO FOREIGN KEY (veterinario_id) REFERENCES usuario (id);
+    ADD CONSTRAINT FK_CITAS_ON_VETERINARIO FOREIGN KEY (veterinario_id) REFERENCES perfil (id);
 
 ALTER TABLE facturas
     ADD CONSTRAINT FK_FACTURAS_ON_CLIENTE FOREIGN KEY (cliente_id) REFERENCES perfil (id);
@@ -201,7 +200,7 @@ ALTER TABLE perfil
     ADD CONSTRAINT FK_PERFIL_ON_ID FOREIGN KEY (id) REFERENCES usuario (id);
 
 ALTER TABLE prescripciones
-    ADD CONSTRAINT FK_PRESCRIPCIONES_ON_EMITIDO_POR FOREIGN KEY (emitido_por) REFERENCES usuario (id);
+    ADD CONSTRAINT FK_PRESCRIPCIONES_ON_EMITIDO_POR FOREIGN KEY (emitido_por) REFERENCES perfil (id);
 
 ALTER TABLE prescripciones
     ADD CONSTRAINT FK_PRESCRIPCIONES_ON_HISTORIAL FOREIGN KEY (historial_id) REFERENCES historiales_medicos (id);

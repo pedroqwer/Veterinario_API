@@ -1,6 +1,7 @@
 package com.example.Veterinario.Model.Entity;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
 import lombok.*;
 import java.time.LocalDate;
 import java.util.List;
@@ -21,19 +22,28 @@ public class Mascota {
     @JoinColumn(name = "perfil_id")
     private Perfil cliente;
 
+    @NotBlank(message = "El nombre del animal no puede estar en blanco.")
     @Column(nullable = false)
     private String nombre;
 
+    @NotBlank(message = "La especie no puede estar en blanco.")
     @Column(nullable = false)
     private String especie;
 
+    @NotBlank(message = "La raza no puede estar en blanco.")
+    @Column(nullable = false)
     private String raza;
 
+    @NotBlank(message = "El sexo no puede estar en blanco.")
+    @Column(nullable = false)
     private String sexo;
 
+    @NotBlank(message = "La fecha de nacimiento no puede estar en blanco.")
+    @Column(nullable = false, name = "fecha de nacimiento")
     private LocalDate fechaNacimiento;
 
-    private String microchip;
+    @Column(nullable = false)
+    private boolean microchip;
 
     private String notas;
 

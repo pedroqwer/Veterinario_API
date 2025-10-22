@@ -18,7 +18,7 @@ public class Archivo {
 
     @ManyToOne
     @JoinColumn(name = "propietario_id")
-    private Usuario propietario;
+    private Perfil propietario;
 
     private String tipoEntidad;
 
@@ -30,7 +30,7 @@ public class Archivo {
 
     @ManyToOne
     @JoinColumn(name = "subido_por")
-    private Usuario subidoPor;
+    private Perfil subidoPor;
 
     @Column(name = "fecha_subida")
     private LocalDateTime fechaSubida = LocalDateTime.now();

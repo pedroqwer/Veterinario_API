@@ -3,6 +3,7 @@ package com.example.Veterinario.Model.Entity;
 import com.example.Veterinario.Model.Entity.Mascota;
 import com.example.Veterinario.Model.Entity.Perfil;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
 import lombok.*;
 import java.time.LocalDateTime;
 
@@ -31,6 +32,8 @@ public class HistorialMedico {
 
     private String resumen;
 
+    @NotBlank(message = "El diagnostico no puede estar en blanco.")
+    @Column(nullable = false)
     private String diagnostico;
 
     private String notas;

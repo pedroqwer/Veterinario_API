@@ -1,6 +1,7 @@
 package com.example.Veterinario.Model.Entity;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
 import lombok.*;
 import java.time.LocalDateTime;
 
@@ -18,14 +19,15 @@ public class Auditoria {
 
     @ManyToOne
     @JoinColumn(name = "usuario_id")
-    private Usuario usuario;
+    private Perfil usuario;
 
+    @NotBlank(message = "La acción no puede estar en blanco.")
+    @Column(nullable = false)
     private String accion;
 
+    @NotBlank(message = "La entidad no puede estar en blanco.")
+    @Column(nullable = false)
     private String entidad;
-
-    @Column(name = "id_entidad")
-    private Long idEntidad;
 
     @Column(name = "fecha_accion")
     private LocalDateTime fechaAccion = LocalDateTime.now();

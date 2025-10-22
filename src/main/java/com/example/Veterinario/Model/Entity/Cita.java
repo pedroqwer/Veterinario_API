@@ -1,6 +1,7 @@
 package com.example.Veterinario.Model.Entity;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
 import lombok.*;
 import java.time.LocalDateTime;
 
@@ -26,10 +27,10 @@ public class Cita {
 
     @ManyToOne
     @JoinColumn(name = "veterinario_id")
-    private Usuario veterinario;
+    private Perfil veterinario;
 
     @Column(nullable = false)
-    private String estado = "PENDIENTE";
+    private String estado;
 
     @Column(name = "fecha_inicio", nullable = false)
     private LocalDateTime fechaInicio;
@@ -37,10 +38,12 @@ public class Cita {
     @Column(name = "fecha_fin")
     private LocalDateTime fechaFin;
 
+    @NotBlank(message = "El motivo no puede estar en blanco.")
+    @Column(nullable = false)
     private String motivo;
 
     @ManyToOne
     @JoinColumn(name = "creado_por")
-    private Usuario creadoPor;
+    private Perfil creadoPor;
 }
 
