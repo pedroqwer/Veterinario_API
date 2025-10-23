@@ -16,22 +16,18 @@ public class Archivo {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne
-    @JoinColumn(name = "propietario_id")
-    private Perfil propietario;
+    private String nombre;
 
-    private String tipoEntidad;
+    private String ruta;
 
-    private Long idEntidad;
+    //.pdf .img
+    private String tipoMime;
 
-    private String url;
+    private Long tamaño;
 
-    private String tipo;
+    private LocalDateTime fechaSubida;
 
     @ManyToOne
     @JoinColumn(name = "subido_por")
     private Perfil subidoPor;
-
-    @Column(name = "fecha_subida")
-    private LocalDateTime fechaSubida = LocalDateTime.now();
 }

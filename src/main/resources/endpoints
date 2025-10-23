@@ -1,0 +1,112 @@
+🔐 AUTENTICACIÓN Y USUARIOS
+AuthController
+Método	Endpoint	Descripción	Roles
+POST	/api/auth/register	Registrar nuevo usuario (cliente o empleado)	Admin
+POST	/api/auth/login	Iniciar sesión, devuelve JWT	Todos
+POST	/api/auth/refresh	Renovar token JWT	Todos
+GET	/api/auth/me	Ver perfil actual (según token)	Todos autenticados
+PUT	/api/auth/change-password	Cambiar contraseña	Todos autenticados
+
+🐾 Perfil
+ClienteController
+Método	Endpoint	Descripción	Roles
+GET	/api/clientes	Listar clientes	Admin / Recepcionista / Veterinario
+GET	/api/clientes/{id}	Obtener cliente	Admin / Recepcionista / Veterinario
+POST	/api/clientes	Registrar nuevo cliente	Admin / Recepcionista / Propietario
+PUT	/api/clientes/{id}	Actualizar datos cliente	Admin / Recepcionista
+DELETE	/api/clientes/{id}	Eliminar cliente	Admin
+
+
+🐶 MASCOTAS
+MascotaController
+Método	Endpoint	Descripción	Roles
+GET	/api/mascotas	Listar todas las mascotas	Admin / Veterinario / Recepcionista
+GET	/api/mascotas/{id}	Ver detalles de mascota	Admin / Veterinario / Dueño
+POST	/api/mascotas	Registrar nueva mascota	Admin / Recepcionista
+PUT	/api/mascotas/{id}	Editar mascota	Admin / Veterinario
+DELETE	/api/mascotas/{id}	Eliminar mascota	Admin
+
+
+📅 CITAS (APPOINTMENTS)
+CitaController
+Método	Endpoint	Descripción	Roles
+GET	/api/citas	Listar todas las citas	Admin / Veterinario / Recepcionista
+GET	/api/citas/{id}	Ver cita específica	Admin / Veterinario / Cliente (si es suya)
+POST	/api/citas	Crear cita	Recepcionista / Cliente
+PUT	/api/citas/{id}	Actualizar cita	Admin / Recepcionista
+DELETE	/api/citas/{id}	Cancelar cita	Admin / Recepcionista / Cliente
+
+
+🧾 HISTORIALES MÉDICOS
+HistorialMedicoController
+Método	Endpoint	Descripción	Roles
+GET	/api/historiales	Listar historiales médicos	Veterinario / Admin
+GET	/api/historiales/{id}	Ver historial por ID	Veterinario / Dueño
+POST	/api/historiales	Crear historial médico	Veterinario
+PUT	/api/historiales/{id}	Actualizar historial	Veterinario
+DELETE	/api/historiales/{id}	Eliminar historial	Admin
+
+
+💉 VACUNAS
+VacunaController
+Método	Endpoint	Descripción	Roles
+GET	/api/vacunas	Listar todas las vacunas aplicadas	Veterinario / Admin
+GET	/api/vacunas/{id}	Ver vacuna específica	Veterinario / Admin
+POST	/api/vacunas	Registrar vacuna aplicada	Veterinario
+PUT	/api/vacunas/{id}	Editar información de vacuna	Veterinario / Admin
+DELETE	/api/vacunas/{id}	Eliminar registro	Admin
+
+
+💊 PRESCRIPCIONES (RECETAS)
+PrescripcionController
+Método	Endpoint	Descripción	Roles
+GET	/api/prescripciones	Listar prescripciones	Veterinario / Admin
+GET	/api/prescripciones/{id}	Ver prescripción	Veterinario / Dueño
+POST	/api/prescripciones	Crear prescripción	Veterinario
+PUT	/api/prescripciones/{id}	Modificar prescripción	Veterinario
+DELETE	/api/prescripciones/{id}	Eliminar prescripción	Admin
+
+
+💵 FACTURAS
+FacturaController
+Método	Endpoint	Descripción	Roles
+GET	/api/facturas	Listar facturas	Admin / Recepcionista
+GET	/api/facturas/{id}	Ver factura específica	Admin / Cliente (si es suya)
+POST	/api/facturas	Crear factura	Admin / Recepcionista
+PUT	/api/facturas/{id}	Modificar factura	Admin
+DELETE	/api/facturas/{id}	Eliminar factura	Admin
+
+
+📦 INVENTARIO
+InventarioController
+Método	Endpoint	Descripción	Roles
+GET	/api/inventario	Listar artículos del inventario	Admin / Veterinario / Recepcionista
+GET	/api/inventario/{id}	Ver producto específico	Admin / Veterinario
+POST	/api/inventario	Agregar nuevo producto	Admin
+PUT	/api/inventario/{id}	Actualizar stock o información	Admin / Veterinario
+DELETE	/api/inventario/{id}	Eliminar producto	Admin
+
+
+📁 ARCHIVOS (Documentos, imágenes de mascotas, informes…)
+ArchivoController
+Método	Endpoint	Descripción	Roles
+---POST	/api/archivos/subir	Subir archivo	Admin / Veterinario / Recepcionista
+GET	/api/archivos/{id}	Descargar archivo	Autenticado
+---DELETE	/api/archivos/{id}	Eliminar archivo	Admin
+
+
+📜 AUDITORÍA
+AuditoriaController
+Método	Endpoint	Descripción	Roles
+GET	/api/auditoria	Ver logs de acciones (quién hizo qué y cuándo)	Admin
+GET	/api/auditoria/{id}	Ver detalle de evento específico	Admin
+DELETE	/api/auditoria/limpiar	Vaciar logs (opcional)	Admin
+
+
+🔎 BÚSQUEDAS / FILTROS EXTRA (Opcionales y útiles)
+Endpoint	Descripción	Ejemplo
+/api/mascotas/buscar?nombre=Luna	Buscar mascota por nombre	🐶
+/api/clientes/buscar?dni=12345678A	Buscar cliente por DNI	👤
+/api/citas/pendientes	Listar citas pendientes	📅
+/api/vacunas/vencidas	Vacunas próximas a vencer	💉
+/api/facturas/cliente/{id}	Facturas de un cliente específico	💵
