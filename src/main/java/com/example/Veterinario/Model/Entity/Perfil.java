@@ -38,9 +38,6 @@ public class Perfil extends Usuario{
     @Column(unique = true, nullable = false, name = "telefono")
     private String telefono;
 
-    @Column(unique = true, nullable = false, name = "notas")
-    private String notas;
-
     @OneToMany(mappedBy = "cliente", cascade = CascadeType.ALL)
     private List<Mascota> mascotas;
 }

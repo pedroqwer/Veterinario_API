@@ -75,7 +75,6 @@ public class AuthenticationService implements IAuthenticationService {
 
         Perfil perfil = (Perfil) usuarioAutenticado;
 
-
         // Cambiar el estado a activo si no lo está
         if (!perfil.isActivo()) {
             perfil.setActivo(true);

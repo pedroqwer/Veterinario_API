@@ -1,13 +1,12 @@
 CREATE TABLE archivos
 (
-    id             BIGINT AUTO_INCREMENT NOT NULL,
-    propietario_id BIGINT NULL,
-    tipo_entidad   VARCHAR(255) NULL,
-    id_entidad     BIGINT NULL,
-    url            VARCHAR(255) NULL,
-    tipo           VARCHAR(255) NULL,
-    subido_por     BIGINT NULL,
-    fecha_subida   datetime NULL,
+    id           BIGINT AUTO_INCREMENT NOT NULL,
+    nombre       VARCHAR(255) NULL,
+    ruta         VARCHAR(255) NULL,
+    tipo_mime    VARCHAR(255) NULL,
+    `tamaño`     BIGINT NULL,
+    fecha_subida datetime NULL,
+    subido_por   BIGINT NULL,
     CONSTRAINT pk_archivos PRIMARY KEY (id)
 );
 
@@ -94,7 +93,6 @@ CREATE TABLE perfil
     dni      VARCHAR(255) NOT NULL,
     email    VARCHAR(255) NOT NULL,
     telefono VARCHAR(255) NOT NULL,
-    notas    VARCHAR(255) NOT NULL,
     CONSTRAINT pk_perfil PRIMARY KEY (id)
 );
 
@@ -152,9 +150,6 @@ ALTER TABLE perfil
     ADD CONSTRAINT uc_perfil_email UNIQUE (email);
 
 ALTER TABLE perfil
-    ADD CONSTRAINT uc_perfil_notas UNIQUE (notas);
-
-ALTER TABLE perfil
     ADD CONSTRAINT uc_perfil_telefono UNIQUE (telefono);
 
 ALTER TABLE usuario
@@ -162,9 +157,6 @@ ALTER TABLE usuario
 
 ALTER TABLE usuario
     ADD CONSTRAINT uc_usuario_username UNIQUE (username);
-
-ALTER TABLE archivos
-    ADD CONSTRAINT FK_ARCHIVOS_ON_PROPIETARIO FOREIGN KEY (propietario_id) REFERENCES perfil (id);
 
 ALTER TABLE archivos
     ADD CONSTRAINT FK_ARCHIVOS_ON_SUBIDO_POR FOREIGN KEY (subido_por) REFERENCES perfil (id);

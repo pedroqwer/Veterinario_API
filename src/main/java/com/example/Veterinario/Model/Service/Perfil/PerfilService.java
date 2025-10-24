@@ -1,6 +1,7 @@
 package com.example.Veterinario.Model.Service.Perfil;
 
 import com.example.Veterinario.Model.Entity.Perfil;
+import com.example.Veterinario.Model.Entity.RoleType;
 import com.example.Veterinario.Model.Repository.Perfil.IRepositoryPerfil;
 import io.jsonwebtoken.lang.Arrays;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,7 +17,7 @@ public class PerfilService implements IPerfilService{
 
     @Override
     public List<Perfil> findAll_USER_CLIENT() {
-        return repositoryPerfil.findByRolIn(Arrays.asList(new String[]{"CLIENTE","USUARIO"}));
+        return repositoryPerfil.findByRolesIn(Arrays.asList(new RoleType[]{RoleType.CLIENTE , RoleType.USUARIO}));
     }
 
     @Override
