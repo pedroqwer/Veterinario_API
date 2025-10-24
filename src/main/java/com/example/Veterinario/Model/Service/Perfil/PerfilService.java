@@ -37,6 +37,16 @@ public class PerfilService implements IPerfilService{
 
     @Override
     public boolean actualizarPerfil(Perfil perfil) {
-        return false;
+        try {
+            Perfil perfil1 = repositoryPerfil.findById(perfil.getId()).get();
+            perfil1.setNombre(perfil.getNombre());
+            perfil1.setApellido(perfil.getApellido());
+            perfil1.setEmail(perfil.getEmail());
+            perfil1.setTelefono(perfil.getTelefono());
+            repositoryPerfil.save(perfil1);
+            return true;
+        }catch (Exception e){
+            return false;
+        }
     }
 }

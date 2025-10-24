@@ -7,7 +7,7 @@ POST	/api/auth/refresh	Renovar token JWT	Todos
 GET	/api/auth/me	Ver perfil actual (según token)	Todos autenticados
 PUT	/api/auth/change-password	Cambiar contraseña	Todos autenticados
 
-🐾 Perfil
+🐾 Perfil (Echo)
 ClienteController
 Método	Endpoint	Descripción	Roles
 GET	/api/clientes	Listar clientes	Admin / Recepcionista / Veterinario
@@ -17,7 +17,7 @@ PUT	/api/clientes/{id}	Actualizar datos cliente	Admin / Recepcionista
 DELETE	/api/clientes/{id}	Eliminar cliente	Admin
 
 
-🐶 MASCOTAS
+🐶 MASCOTAS (Echo)
 MascotaController
 Método	Endpoint	Descripción	Roles
 GET	/api/mascotas	Listar todas las mascotas	Admin / Veterinario / Recepcionista
@@ -27,17 +27,18 @@ PUT	/api/mascotas/{id}	Editar mascota	Admin / Veterinario
 DELETE	/api/mascotas/{id}	Eliminar mascota	Admin
 
 
-📅 CITAS (APPOINTMENTS)
+📅 CITAS (APPOINTMENTS) (ECHO)
 CitaController
 Método	Endpoint	Descripción	Roles
 GET	/api/citas	Listar todas las citas	Admin / Veterinario / Recepcionista
 GET	/api/citas/{id}	Ver cita específica	Admin / Veterinario / Cliente (si es suya)
-POST	/api/citas	Crear cita	Recepcionista / Cliente
+POST	/api/citas	Crear cita	Admin /Recepcionista
 PUT	/api/citas/{id}	Actualizar cita	Admin / Recepcionista
 DELETE	/api/citas/{id}	Cancelar cita	Admin / Recepcionista / Cliente
+PACH /api/citaFinalizada TerminarCita Veterinario / Recepcionista
 
 
-🧾 HISTORIALES MÉDICOS
+🧾 HISTORIALES MÉDICOS (HECHO)
 HistorialMedicoController
 Método	Endpoint	Descripción	Roles
 GET	/api/historiales	Listar historiales médicos	Veterinario / Admin

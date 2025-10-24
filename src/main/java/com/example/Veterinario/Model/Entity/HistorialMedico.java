@@ -28,7 +28,7 @@ public class HistorialMedico {
     private Perfil veterinario;
 
     @Column(name = "fecha_visita")
-    private LocalDateTime fechaVisita = LocalDateTime.now();
+    private LocalDateTime fechaVisita;
 
     private String resumen;
 
