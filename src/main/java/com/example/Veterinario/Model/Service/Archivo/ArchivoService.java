@@ -6,21 +6,19 @@ import com.example.Veterinario.Model.Repository.Archivo.IArchivoRepositori;
 import com.example.Veterinario.Model.Repository.Perfil.IRepositoryPerfil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.multipart.MultipartFile;
 
+import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.nio.file.StandardCopyOption;
 import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
 public class ArchivoService implements IArchivoService {
-
-    private static final String UPLOAD_DIR = "uploads/";
 
     @Autowired
     private IArchivoRepositori archivoRepositorio;
@@ -29,7 +27,7 @@ public class ArchivoService implements IArchivoService {
     private IRepositoryPerfil iRepositoryPerfil;
 
     @Override
-    public boolean subirArchivo(MultipartFile file, String nombre_Archivo, String ruta_Archivo, String tipoArchivo,
+    public boolean subirArchivo(String nombre_Archivo, String ruta_Archivo, String tipoArchivo,
                                 long tamanoArchivo, long idUsuario) {
         try {
 
@@ -37,20 +35,7 @@ public class ArchivoService implements IArchivoService {
 
             LocalDateTime fecha = LocalDateTime.now();
 
-            if (file.isEmpty()) {
-                throw new RuntimeException("El archivo está vacío");
-            }
-
-            File directory = new File(UPLOAD_DIR);
-            if (!directory.exists()) {
-                directory.mkdirs();
-            }
-
-            Path filePath = Paths.get(UPLOAD_DIR, ruta_Archivo, nombre_Archivo);
-            Files.createDirectories(filePath.getParent()); // crear directorios si no existen
-
-            // Guardar el archivo
-            Files.write(filePath, file.getBytes());
+            Fichero(nombre_Archivo,ruta_Archivo);
 
             Archivo archivo = new Archivo();
             archivo.setNombre(nombre_Archivo);
@@ -65,6 +50,29 @@ public class ArchivoService implements IArchivoService {
             return true;
         } catch (Exception e) {
             return false;
+        }
+    }
+
+    private void Fichero(String nombre_Archivo, String ruta_Archivo) throws IOException {
+        
+        File carpeta = new File(ruta_Archivo, "Carpeta_Archivos");
+        if (carpeta.exists()) {
+            System.out.println("Carpeta existente");
+        }else {
+            carpeta.mkdir();
+            File ficheroCrear = new File(carpeta ,nombre_Archivo+".txt");
+            if (ficheroCrear.exists()) {
+                System.out.println("Fichero existente");
+            }else {
+                ficheroCrear.createNewFile();
+                try (BufferedWriter bf = new BufferedWriter(new FileWriter(ficheroCrear))) {
+                    bf.write(nombre_Archivo);
+                    bf.newLine();
+                    bf.write("wr");
+                }catch (Exception e){
+
+                }
+            }
         }
     }
 

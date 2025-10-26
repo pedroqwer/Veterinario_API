@@ -8,7 +8,7 @@ import java.util.List;
 
 public interface IArchivoService {
 
-    boolean subirArchivo(MultipartFile file, String nombre_Archivo, String ruta_Archivo, String tipoArchivo,
+    boolean subirArchivo(String nombre_Archivo, String ruta_Archivo, String tipoArchivo,
                          long tamanoArchivo, long idUsuario) throws IOException;
     Archivo obtenerArchivoPorId(Long id);
     void eliminarArchivo(Long id) throws IOException;
