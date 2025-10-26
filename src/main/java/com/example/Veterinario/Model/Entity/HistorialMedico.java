@@ -40,4 +40,8 @@ public class HistorialMedico {
 
     @Column(name = "archivos_json", columnDefinition = "TEXT")
     private String archivosJson;
+
+    @ManyToOne
+    @JoinColumn(name = "prescripcion_id")
+    private Prescripcion prescripcion;
 }

@@ -24,7 +24,7 @@ public class Factura {
     @Column(name = "monto_total", nullable = false)
     private BigDecimal montoTotal;
 
-    private String estado = "PENDIENTE";
+    private String estado;
 
     @Column(name = "fecha_vencimiento")
     private LocalDate fechaVencimiento;

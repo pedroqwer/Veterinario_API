@@ -16,10 +16,6 @@ public class Prescripcion {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne
-    @JoinColumn(name = "historial_id")
-    private HistorialMedico historialMedico;
-
     @NotBlank(message = "El medicamento no puede estar en blanco.")
     @Column(nullable = false)
     private String medicamento;

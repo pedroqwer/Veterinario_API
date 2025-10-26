@@ -48,7 +48,7 @@ PUT	/api/historiales/{id}	Actualizar historial	Veterinario
 DELETE	/api/historiales/{id}	Eliminar historial	Admin
 
 
-💉 VACUNAS
+💉 VACUNAS (HECHO)
 VacunaController
 Método	Endpoint	Descripción	Roles
 GET	/api/vacunas	Listar todas las vacunas aplicadas	Veterinario / Admin
@@ -58,7 +58,7 @@ PUT	/api/vacunas/{id}	Editar información de vacuna	Veterinario / Admin
 DELETE	/api/vacunas/{id}	Eliminar registro	Admin
 
 
-💊 PRESCRIPCIONES (RECETAS)
+💊 PRESCRIPCIONES (HECHO)
 PrescripcionController
 Método	Endpoint	Descripción	Roles
 GET	/api/prescripciones	Listar prescripciones	Veterinario / Admin
@@ -68,7 +68,7 @@ PUT	/api/prescripciones/{id}	Modificar prescripción	Veterinario
 DELETE	/api/prescripciones/{id}	Eliminar prescripción	Admin
 
 
-💵 FACTURAS
+💵 FACTURAS  (HECHO)
 FacturaController
 Método	Endpoint	Descripción	Roles
 GET	/api/facturas	Listar facturas	Admin / Recepcionista
@@ -78,7 +78,7 @@ PUT	/api/facturas/{id}	Modificar factura	Admin
 DELETE	/api/facturas/{id}	Eliminar factura	Admin
 
 
-📦 INVENTARIO
+📦 INVENTARIO (HECHO)
 InventarioController
 Método	Endpoint	Descripción	Roles
 GET	/api/inventario	Listar artículos del inventario	Admin / Veterinario / Recepcionista
@@ -86,9 +86,9 @@ GET	/api/inventario/{id}	Ver producto específico	Admin / Veterinario
 POST	/api/inventario	Agregar nuevo producto	Admin
 PUT	/api/inventario/{id}	Actualizar stock o información	Admin / Veterinario
 DELETE	/api/inventario/{id}	Eliminar producto	Admin
+GET	/api/inventario/alertas	🔔 Listar productos con stock por debajo del mínimo	Admin / Veterinario
 
-
-📁 ARCHIVOS (Documentos, imágenes de mascotas, informes…)
+📁 ARCHIVOS (Documentos, imágenes de mascotas, informes…) (HECHO)
 ArchivoController
 Método	Endpoint	Descripción	Roles
 ---POST	/api/archivos/subir	Subir archivo	Admin / Veterinario / Recepcionista
@@ -96,7 +96,7 @@ GET	/api/archivos/{id}	Descargar archivo	Autenticado
 ---DELETE	/api/archivos/{id}	Eliminar archivo	Admin
 
 
-📜 AUDITORÍA
+📜 AUDITORÍA (HECHO)
 AuditoriaController
 Método	Endpoint	Descripción	Roles
 GET	/api/auditoria	Ver logs de acciones (quién hizo qué y cuándo)	Admin
@@ -111,3 +111,32 @@ Endpoint	Descripción	Ejemplo
 /api/citas/pendientes	Listar citas pendientes	📅
 /api/vacunas/vencidas	Vacunas próximas a vencer	💉
 /api/facturas/cliente/{id}	Facturas de un cliente específico	💵
+
+| Endpoint                                                                 | Descripción                                          | Ejemplo |
+| ------------------------------------------------------------------------ | ---------------------------------------------------- | ------- |
+| **/api/usuarios/activos**                                                | Listar usuarios con cuenta activa                    | 👥      |
+| **/api/usuarios/ultimo-login?dias=30**                                   | Usuarios que iniciaron sesión en los últimos 30 días | ⏰       |
+| **/api/archivos/por-usuario/{id}**                                       | Archivos subidos por un usuario específico           | 📁      |
+| **/api/archivos/buscar?tipo_mime=image/jpeg**                            | Buscar archivos por tipo MIME                        | 🖼️     |
+| **/api/auditorias/usuario/{id}**                                         | Acciones auditadas de un usuario                     | 🧾      |
+| **/api/auditorias/entidad?nombre=mascotas**                              | Auditorías relacionadas con una entidad              | 🔍      |
+| **/api/citas/por-veterinario/{id}**                                      | Citas asignadas a un veterinario específico          | 🩺      |
+| **/api/citas/por-fecha?desde=2025-10-01&hasta=2025-10-31**               | Buscar citas en un rango de fechas                   | 📆      |
+| **/api/citas/estado?valor=cancelada**                                    | Filtrar citas por estado                             | ❌       |
+| **/api/facturas/pendientes**                                             | Facturas no pagadas                                  | 💰      |
+| **/api/facturas/vencidas**                                               | Facturas con fecha vencida                           | ⚠️      |
+| **/api/facturas/por-fecha?mes=10&año=2025**                              | Facturas generadas en un mes concreto                | 🗓️     |
+| **/api/historiales/mascota/{id}**                                        | Historial médico completo de una mascota             | 🧬      |
+| **/api/historiales/veterinario/{id}**                                    | Historiales atendidos por un veterinario             | 👨‍⚕️   |
+| **/api/prescripciones/por-veterinario/{id}**                             | Prescripciones emitidas por un veterinario           | 💊      |
+| **/api/prescripciones/mascota/{id}**                                     | Prescripciones asociadas a una mascota               | 🐾      |
+| **/api/inventario/bajo-stock**                                           | Productos por debajo del stock mínimo                | 📦      |
+| **/api/inventario/buscar?codigo=VAC-001**                                | Buscar producto en inventario por código             | 🔢      |
+| **/api/vacunas/pendientes/{id_mascota}**                                 | Vacunas pendientes de aplicar a una mascota          | 💉      |
+| **/api/vacunas/proximas?dias=30**                                        | Vacunas que vencen en los próximos 30 días           | ⏳       |
+| **/api/mascotas/por-propietario/{id}**                                   | Mascotas asociadas a un perfil de cliente            | 🐶      |
+| **/api/mascotas/buscar?raza=Labrador**                                   | Buscar mascotas por raza                             | 🐕      |
+| **/api/perfil/buscar?email=[example@mail.com](mailto:example@mail.com)** | Buscar perfil por correo electrónico                 | 📧      |
+| **/api/perfil/buscar?telefono=600123456**                                | Buscar perfil por teléfono                           | 📞      |
+| **/api/roles/listar**                                                    | Listar roles disponibles en el sistema               | 🧩      |
+| **/api/usuarios/roles/{id_usuario}**                                     | Obtener roles asignados a un usuario                 | 🧑‍💻   |

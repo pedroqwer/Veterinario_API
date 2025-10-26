@@ -3,9 +3,11 @@ package com.example.Veterinario.Model.Service.HistorialMedico;
 import com.example.Veterinario.Model.Entity.HistorialMedico;
 import com.example.Veterinario.Model.Entity.Mascota;
 import com.example.Veterinario.Model.Entity.Perfil;
+import com.example.Veterinario.Model.Entity.Prescripcion;
 import com.example.Veterinario.Model.Repository.HistorialMedico.IHistorialMedicoRepository;
 import com.example.Veterinario.Model.Repository.Mascota.IMascotaRepositoru;
 import com.example.Veterinario.Model.Repository.Perfil.IRepositoryPerfil;
+import com.example.Veterinario.Model.Repository.Prescripcion.IRepositoriPrescripcion;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -24,6 +26,9 @@ public class HistorialMedicoService implements IHistorialMedicoService {
 
     @Autowired
     private IHistorialMedicoRepository historialMedicoRepository;
+
+    @Autowired
+    private IRepositoriPrescripcion repositoriPrescripcion;
     @Override
     public List<HistorialMedico> listarHistorialMedico() {
         return (List<HistorialMedico>) historialMedicoRepository.findAll();
@@ -36,12 +41,13 @@ public class HistorialMedicoService implements IHistorialMedicoService {
 
     @Override
     public boolean agregarHistorialMedico(long id_Mascota, long id_Veterinario, LocalDateTime fechaVisita,
-                                          String resumen, String diagnostico, String notas, String archivosJson) {
+                                          String resumen, String diagnostico, String notas, String archivosJson,long prescripcion) {
         try {
             Optional<Perfil> optionalPerfil = repositoryPerfil.findById(id_Mascota);
             Optional<Mascota> optionalMascota = mascotaRepositoru.findById(id_Veterinario);
+            Optional<Prescripcion> optionalPrescripcion = repositoriPrescripcion.findById(prescripcion);
 
-            Verificacion(optionalPerfil, optionalMascota);
+            Verificacion(optionalPerfil, optionalMascota, optionalPrescripcion);
 
             fechaVisita = LocalDateTime.now();
 
@@ -53,6 +59,7 @@ public class HistorialMedicoService implements IHistorialMedicoService {
             historialMedico.setArchivosJson(archivosJson);
             historialMedico.setMascota(optionalMascota.get());
             historialMedico.setVeterinario(optionalPerfil.get());
+            historialMedico.setPrescripcion(optionalPrescripcion.get());
 
             historialMedicoRepository.save(historialMedico);
             return true;
@@ -63,12 +70,13 @@ public class HistorialMedicoService implements IHistorialMedicoService {
 
     @Override
     public boolean actualizarHistorialMedico(long id_Mascota, long id_Veterinario, String resumen,
-                                             String diagnostico, String notas, String archivosJson) {
+                                             String diagnostico, String notas, String archivosJson, long prescripcion) {
         try {
             Optional<Perfil> optionalPerfil = repositoryPerfil.findById(id_Mascota);
             Optional<Mascota> optionalMascota = mascotaRepositoru.findById(id_Veterinario);
+            Optional<Prescripcion> optionalPrescripcion = repositoriPrescripcion.findById(prescripcion);
 
-            Verificacion(optionalPerfil, optionalMascota);
+            Verificacion(optionalPerfil, optionalMascota, optionalPrescripcion);
 
             HistorialMedico historialMedico = new HistorialMedico();
             historialMedico.setNotas(notas);
@@ -77,6 +85,7 @@ public class HistorialMedicoService implements IHistorialMedicoService {
             historialMedico.setArchivosJson(archivosJson);
             historialMedico.setMascota(optionalMascota.get());
             historialMedico.setVeterinario(optionalPerfil.get());
+            historialMedico.setPrescripcion(optionalPrescripcion.get());
 
             historialMedicoRepository.save(historialMedico);
             return true;
@@ -90,9 +99,9 @@ public class HistorialMedicoService implements IHistorialMedicoService {
         historialMedicoRepository.deleteById(id);
     }
 
-    private boolean Verificacion(Optional<Perfil> optionalPerfil, Optional<Mascota> optionalMascota) {
+    private boolean Verificacion(Optional<Perfil> optionalPerfil, Optional<Mascota> optionalMascota, Optional<Prescripcion> optionalPrescripcion) {
         if (optionalPerfil.isPresent() && optionalMascota.isPresent()) {
-            System.out.println("Faltan el veterinario o mascota");
+            System.out.println("Faltan el veterinario o mascota o prescipción");
             return false;
         }
         return true;
