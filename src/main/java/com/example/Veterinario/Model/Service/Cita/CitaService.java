@@ -114,6 +114,11 @@ public class CitaService implements ICitaService{
         return false;
     }
 
+    @Override
+    public List<Cita> findAllByEstadoPendiente() {
+        return (List<Cita>) citaRepository.findAllByEstadoPendiente();
+    }
+
     private boolean Verificacion(Optional<Perfil> perfilrecepcionosta, Optional<Perfil> perfilrCliente, Optional<Perfil> perfilrVeterinario, Optional<Mascota> mascota) {
         if (perfilrecepcionosta.isEmpty() && perfilrCliente.isEmpty() && perfilrVeterinario.isEmpty()) {
             System.out.println("Faltan datos para la cita");

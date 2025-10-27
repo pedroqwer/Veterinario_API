@@ -13,4 +13,5 @@ public interface IVacunaService {
     boolean updateVacunacion(long id_Mascota, String nombreVacuna, LocalDate fechaAplicacion,
                                 LocalDate proximaDosis,String lote);
     void deleteVacunacion(long id);
+    List<Vacunacion> findVacunasProximasAVencer(LocalDate hoy);
 }

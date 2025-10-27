@@ -10,4 +10,5 @@ public interface IPerfilService {
     Perfil obtenerPerfilporID(long id);
     void eliminarPerfil(long id);
     boolean actualizarPerfil(Perfil perfil);
+    List<Perfil> findAllByDni(String dni);
 }

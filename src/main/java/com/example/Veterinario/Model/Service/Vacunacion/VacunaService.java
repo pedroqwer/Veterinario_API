@@ -83,4 +83,9 @@ public class VacunaService implements IVacunaService {
     public void deleteVacunacion(long id) {
         vacunaRepository.deleteById(id);
     }
+
+    @Override
+    public List<Vacunacion> findVacunasProximasAVencer(LocalDate hoy) {
+        return (List<Vacunacion>) vacunaRepository.findVacunasProximasAVencer(hoy);
+    }
 }

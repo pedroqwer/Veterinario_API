@@ -49,4 +49,9 @@ public class PerfilService implements IPerfilService{
             return false;
         }
     }
+
+    @Override
+    public List<Perfil> findAllByDni(String dni) {
+        return (List<Perfil>) repositoryPerfil.findAllByDni(dni);
+    }
 }

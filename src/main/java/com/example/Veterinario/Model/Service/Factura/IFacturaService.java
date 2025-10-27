@@ -14,4 +14,5 @@ public interface IFacturaService {
     boolean update(long id_cliente, BigDecimal monto, String estado,
                    LocalDate vencimiento, String itemJson, LocalDate fecha_pago);
     void delete(long id);
+    List<Factura> findByClienteId(long clienteId);
 }

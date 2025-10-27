@@ -106,11 +106,11 @@ DELETE	/api/auditoria/limpiar	Vaciar logs (opcional)	Admin
 
 🔎 BÚSQUEDAS / FILTROS EXTRA (Opcionales y útiles)
 Endpoint	Descripción	Ejemplo
-/api/mascotas/buscar?nombre=Luna	Buscar mascota por nombre	🐶
-/api/clientes/buscar?dni=12345678A	Buscar cliente por DNI	👤
-/api/citas/pendientes	Listar citas pendientes	📅
-/api/vacunas/vencidas	Vacunas próximas a vencer	💉
-/api/facturas/cliente/{id}	Facturas de un cliente específico	💵
+/api/mascotas/buscar?nombre=Luna	Buscar mascota por nombre	🐶 hecho
+/api/clientes/buscar?dni=12345678A	Buscar cliente por DNI	👤 hecho
+/api/citas/pendientes	Listar citas pendientes	📅 hecho
+/api/vacunas/vencidas	Vacunas próximas a vencer	💉 hecho
+/api/facturas/cliente/{id}	Facturas de un cliente específico	💵 hecho
 
 | Endpoint                                                                 | Descripción                                          | Ejemplo |
 | ------------------------------------------------------------------------ | ---------------------------------------------------- | ------- |

@@ -28,52 +28,60 @@ public class ArchivoService implements IArchivoService {
 
     @Override
     public boolean subirArchivo(String nombre_Archivo, String ruta_Archivo, String tipoArchivo,
-                                long tamanoArchivo, long idUsuario) {
+                                long tamanoArchivo, long idUsuario, String contenido) {
         try {
 
             Perfil idPerfil = iRepositoryPerfil.findById(idUsuario).orElseThrow();
 
             LocalDateTime fecha = LocalDateTime.now();
 
-            Fichero(nombre_Archivo,ruta_Archivo);
+            File carpeta = new File(ruta_Archivo, "Carpeta_Archivos");
+            if (carpeta.exists()) {
+                System.out.println("Carpeta existente");
+            }else {
+                carpeta.mkdir();
+                File ficheroCrear = new File(carpeta ,nombre_Archivo+".txt");
+                if (ficheroCrear.exists()) {
+                    System.out.println("Fichero existente");
+                }else {
+                    ficheroCrear.createNewFile();
 
-            Archivo archivo = new Archivo();
-            archivo.setNombre(nombre_Archivo);
-            archivo.setRuta(filePath.toString());
-            archivo.setTipoMime(file.getContentType());
-            archivo.setTamaño(file.getSize());
-            archivo.setSubidoPor(idPerfil);
-            archivo.setFechaSubida(fecha);
+                    Path path = ficheroCrear.toPath();
+                    String tipoMime = Files.probeContentType(path);
+                    long tamanoReal = Files.size(path);
 
-            archivoRepositorio.save(archivo);
+                    Archivo archivo = new Archivo();
+                    archivo.setNombre(nombre_Archivo);
+                    archivo.setRuta(ficheroCrear.getAbsolutePath());
+                    archivo.setTipoMime(tipoMime);
+                    archivo.setTamaño(tamanoReal);
+                    archivo.setSubidoPor(idPerfil);
+                    archivo.setFechaSubida(fecha);
+                    archivo.setContenido(contenido);
+                    archivoRepositorio.save(archivo);
 
+                    try (BufferedWriter bf = new BufferedWriter(new FileWriter(ficheroCrear))) {
+                        bf.write(nombre_Archivo);
+                        bf.newLine();
+                        bf.write(ruta_Archivo);
+                        bf.newLine();
+                        bf.write(tipoMime);
+                        bf.newLine();
+                        bf.write((int) tamanoReal);
+                        bf.newLine();
+                        bf.write(contenido);
+                    }catch (Exception e){
+
+                    }
+                }
+            }
             return true;
         } catch (Exception e) {
             return false;
         }
     }
 
-    private void Fichero(String nombre_Archivo, String ruta_Archivo) throws IOException {
-        
-        File carpeta = new File(ruta_Archivo, "Carpeta_Archivos");
-        if (carpeta.exists()) {
-            System.out.println("Carpeta existente");
-        }else {
-            carpeta.mkdir();
-            File ficheroCrear = new File(carpeta ,nombre_Archivo+".txt");
-            if (ficheroCrear.exists()) {
-                System.out.println("Fichero existente");
-            }else {
-                ficheroCrear.createNewFile();
-                try (BufferedWriter bf = new BufferedWriter(new FileWriter(ficheroCrear))) {
-                    bf.write(nombre_Archivo);
-                    bf.newLine();
-                    bf.write("wr");
-                }catch (Exception e){
-
-                }
-            }
-        }
+    private void CrearArchivo(File ficheroCrear) {
     }
 
     @Override

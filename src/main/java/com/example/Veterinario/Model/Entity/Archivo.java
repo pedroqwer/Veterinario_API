@@ -27,6 +27,8 @@ public class Archivo {
 
     private LocalDateTime fechaSubida;
 
+    private String contenido;
+
     @ManyToOne
     @JoinColumn(name = "subido_por")
     private Perfil subidoPor;

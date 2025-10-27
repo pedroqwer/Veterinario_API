@@ -84,4 +84,9 @@ public class FacturaService implements IFacturaService {
     public void delete(long id) {
 
     }
+
+    @Override
+    public List<Factura> findByClienteId(long clienteId) {
+        return (List<Factura>) facturaRepository.findByClienteId(clienteId);
+    }
 }

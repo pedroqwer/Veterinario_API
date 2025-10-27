@@ -14,4 +14,5 @@ public interface ICitaService {
                        String motivo, long id_recepcionista);
     void deleteCita(long id);
     boolean FinalizarCita(long id);
+    List<Cita> findAllByEstadoPendiente();
 }

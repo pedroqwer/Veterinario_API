@@ -90,4 +90,9 @@ public class MascotasService implements IMascotasService{
     public void deleteMascota(long id) {
         mascotaRepositoru.deleteById(id);
     }
+
+    @Override
+    public List<Mascota> findAllByNombre(String nombre) {
+        return (List<Mascota>) mascotaRepositoru.findAllByNombre(nombre);
+    }
 }
