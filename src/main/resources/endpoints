@@ -114,12 +114,12 @@ Endpoint	Descripción	Ejemplo
 
 | Endpoint                                                                 | Descripción                                          | Ejemplo |
 | ------------------------------------------------------------------------ | ---------------------------------------------------- | ------- |
-| **/api/usuarios/activos**                                                | Listar usuarios con cuenta activa                    | 👥      |
-| **/api/usuarios/ultimo-login?dias=30**                                   | Usuarios que iniciaron sesión en los últimos 30 días | ⏰       |
-| **/api/archivos/por-usuario/{id}**                                       | Archivos subidos por un usuario específico           | 📁      |
+| **/api/usuarios/activos**               Hecho                            | Listar usuarios con cuenta activa                    | 👥      |
+| **/api/usuarios/ultimo-login?dias=30**     Hecho                         | Usuarios que iniciaron sesión en los últimos 30 días | ⏰       |
+| **/api/archivos/por-usuario/{id}**         Hecho                         | Archivos subidos por un usuario específico           | 📁      |
 | **/api/archivos/buscar?tipo_mime=image/jpeg**                            | Buscar archivos por tipo MIME                        | 🖼️     |
-| **/api/auditorias/usuario/{id}**                                         | Acciones auditadas de un usuario                     | 🧾      |
-| **/api/auditorias/entidad?nombre=mascotas**                              | Auditorías relacionadas con una entidad              | 🔍      |
+| **/api/auditorias/usuario/{id}**       Hecho                             | Acciones auditadas de un usuario                     | 🧾      |
+| **/api/auditorias/entidad?nombre=mascotas**       Hecho                  | Auditorías relacionadas con una entidad              | 🔍      |
 | **/api/citas/por-veterinario/{id}**                                      | Citas asignadas a un veterinario específico          | 🩺      |
 | **/api/citas/por-fecha?desde=2025-10-01&hasta=2025-10-31**               | Buscar citas en un rango de fechas                   | 📆      |
 | **/api/citas/estado?valor=cancelada**                                    | Filtrar citas por estado                             | ❌       |

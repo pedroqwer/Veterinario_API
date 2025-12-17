@@ -7,6 +7,8 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class UsuarioService implements IUsuarioService{
     @Autowired
@@ -22,5 +24,10 @@ public class UsuarioService implements IUsuarioService{
                 user.getPassword(),
                 user.getAuthorities()
         );
+    }
+
+    @Override
+    public List<Usuario> findUsuariosActivos() {
+        return (List<Usuario>) userRepository.findUsuariosActivos();
     }
 }

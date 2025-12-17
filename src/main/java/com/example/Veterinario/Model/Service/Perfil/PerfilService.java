@@ -7,6 +7,7 @@ import io.jsonwebtoken.lang.Arrays;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
@@ -53,5 +54,10 @@ public class PerfilService implements IPerfilService{
     @Override
     public List<Perfil> findAllByDni(String dni) {
         return (List<Perfil>) repositoryPerfil.findAllByDni(dni);
+    }
+
+    @Override
+    public List<Perfil> findUsuariosByUltimoLoginReciente(LocalDateTime fechaLimite) {
+        return (List<Perfil>) repositoryPerfil.findUsuariosByUltimoLoginReciente(fechaLimite);
     }
 }

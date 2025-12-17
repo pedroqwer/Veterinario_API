@@ -6,6 +6,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Repository
@@ -15,4 +16,7 @@ public interface IRepositoryPerfil extends CrudRepository<Perfil, Long> {
 
     @Query("select p from Perfil p where p.dni =: dni")
     List<Perfil> findAllByDni(String dni);
+
+    @Query("SELECT u FROM Perfil u WHERE u.ultimoLogin >= :fechaLimite")
+    List<Perfil> findUsuariosByUltimoLoginReciente(LocalDateTime fechaLimite);
 }

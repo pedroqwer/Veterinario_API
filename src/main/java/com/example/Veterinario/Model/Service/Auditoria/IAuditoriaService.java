@@ -9,4 +9,6 @@ public interface IAuditoriaService {
     Auditoria getById(long id);
     boolean add(long id_User, String accion, String entidad, String detalles);
     void delete(long id);
+    List<Auditoria> findAllByUsuario(long id_User);
+    List<Auditoria> findAllByEntidad(String entidad);
 }

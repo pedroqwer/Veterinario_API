@@ -108,4 +108,9 @@ public class ArchivoService implements IArchivoService {
     public List<Archivo> listarArchivos() {
         return (List<Archivo>) archivoRepositorio.findAll();
     }
+
+    @Override
+    public List<Archivo> findArchivosByUsuarioId(long usuarioId) {
+        return (List<Archivo>) archivoRepositorio.findArchivosByUsuarioId(usuarioId);
+    }
 }

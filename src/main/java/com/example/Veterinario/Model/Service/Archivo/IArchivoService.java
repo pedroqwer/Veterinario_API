@@ -13,4 +13,5 @@ public interface IArchivoService {
     Archivo obtenerArchivoPorId(Long id);
     void eliminarArchivo(Long id) throws IOException;
     List<Archivo> listarArchivos();
+    List<Archivo> findArchivosByUsuarioId(long usuarioId);
 }
